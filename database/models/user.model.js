@@ -26,7 +26,7 @@ const schema = new mongoose.Schema(
 
     // address: String,
 
-    // phoneNumber: String,
+    phoneNumber: String,
 
     // secondPhoneNumber: String,
 

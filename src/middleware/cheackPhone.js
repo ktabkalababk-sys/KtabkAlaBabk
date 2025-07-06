@@ -7,8 +7,9 @@ export const cheackPhone = catchError(async (req, res, next) => {
   let phone;
   if (req.originalUrl.includes("auth_admin"))
     phone = await Admin.findOne({ phoneNumber: req.body.phoneNumber });
-  else phone = await User.findOne({ phoneNumber: req.body.phoneNumber });
-
+  else {
+    phone = await User.findOne({ phoneNumber: req.body.phoneNumber });
+  }
   if (phone) return next(new AppError("phone is already exist.", 409));
   next();
 });
