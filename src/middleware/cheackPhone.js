@@ -10,6 +10,6 @@ export const cheackPhone = catchError(async (req, res, next) => {
   else {
     phone = await User.findOne({ phoneNumber: req.body.phoneNumber });
   }
-  if (phone) return next(new AppError("phone is already exist.", 409));
+  if (phone) return next(new AppError("الهاتف موجود بلفعل", 409));
   next();
 });
