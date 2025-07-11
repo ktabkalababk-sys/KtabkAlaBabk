@@ -14,7 +14,7 @@ const addBook = catchError(async (req, res, next) => {
     book.bookImageId = uploadResult.fileId;
   }
   book = await book.save();
-  res.status(201).json({ message: "Book added successfully", book });
+  res.status(201).json({ message: "Book added successfully" });
 });
 
 const getAllBooks = catchError(async (req, res, next) => {
@@ -42,7 +42,7 @@ const editBook = catchError(async (req, res, next) => {
     updatedBook.bookImageId = uploadResult.fileId;
   }
   await updatedBook.save();
-  res.status(201).json({ message: "Updated", updatedBook });
+  res.status(201).json({ message: "The Book Has been Updated" });
 });
 
 const deleteBook = catchError(async (req, res, next) => {
@@ -59,7 +59,9 @@ const searchBook = catchError(async (req, res, next) => {
         { bookName: { $regex: req.query.search, $options: "i" } },
         { bookOwner: { $regex: req.query.search, $options: "i" } },
       ],
-    }).select("_id bookName bookOwner bookPrice gradeOfBooks isEmpty ");
+    }).select(
+      "_id bookName bookOwner bookPrice gradeOfBooks isEmpty bookImage"
+    );
     return res.status(201).json({ message: "success", book });
   }
   res.status(200).json({ message: "there is no user to search for" });
