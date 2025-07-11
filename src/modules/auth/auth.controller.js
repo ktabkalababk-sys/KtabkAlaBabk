@@ -34,24 +34,14 @@ const signin = catchError(async (req, res, next) => {
 
 ////////////////////////////Change Password////////////////////////////////////////////
 
-const chnagePassword = catchError(async (req, res, next) => {
-  let user = await User.findOne({ email: req.body.email });
-
-  if (user && bcrypt.compareSync(req.body.oldPassword, user.password)) {
-    await User.findOneAndUpdate(
-      { email: req.body.email },
-      { password: req.body.newPassword, passwordChangedAt: Date.now() }
-    );
-    return jwt.sign(
-      { userId: user._id },
-      process.env.SECKRET_KEY,
-      (err, token) => {
-        if (err) return next(new AppError("Token generation failed", 500));
-        res.status(201).json({ message: "success...", token });
-      }
-    );
+const setDefaultPassword = catchError(async (req, res, next) => {
+  let user = await User.findById(req.params.id);
+  let defaultPassword = "Password1!";
+  if (user) {
+    await User.findByIdAndUpdate(req.params.id, { password: defaultPassword });
+    return res.status(201).json({ message: "success..." });
   }
-  next(new AppError("incorrect password or phone", 401));
+  next(new AppError("there is no user", 404));
 });
 
-export { signup, signin, chnagePassword };
+export { signup, signin, setDefaultPassword };
