@@ -12,9 +12,7 @@ export const verifyToken = async (req, res, next) => {
   console.log("===================");
 
   let { admin_token } = req.headers;
-  let { token } =
-    req.headers ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODcxNTU1YmQ4YWY3YWY5ZmUxZTRmMzIiLCJpYXQiOjE3NTIyNjY0Mzd9.diQo6jZGZnDl3vpdbqcS1V3lRyDfMTsd81kiW3fQBtw";
+  let { token } = req.headers;
 
   if (req.originalUrl.includes("admin")) {
     if (!admin_token) {
