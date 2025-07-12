@@ -22,6 +22,10 @@ const schema = new mongoose.Schema(
       required: true,
     },
 
+    weightOfBooks: {
+      type: Number,
+      required: true,
+    },
     gradeOfBooks: {
       type: String,
       enum: [
@@ -50,7 +54,6 @@ const schema = new mongoose.Schema(
 schema.virtual("isEmptyDynamic").get(function () {
   return this.numberOfBooks === 0;
 });
-
 
 schema.post("init", (doc) => {
   const baseURL = "https://ik.imagekit.io/papyrus/Books/BooksImages/";

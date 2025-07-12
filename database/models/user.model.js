@@ -30,11 +30,6 @@ const schema = new mongoose.Schema(
 
     phoneNumber: String,
 
-    // secondPhoneNumber: String,
-
-    // otp: String,
-
-    // otpExp: Date,
   },
   { versionKey: false, timestamps: true }
 );

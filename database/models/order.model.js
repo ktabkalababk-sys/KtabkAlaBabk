@@ -11,16 +11,18 @@ const schema = new mongoose.Schema(
       },
     ],
     totalOrderPrice: Number,
-    ShippingAddress: {
-      city: String,
-      street: String,
-      phone: String,
+
+    // ShippingAddress: {
+    //   city: String,
+    //   street: String,
+    //   phone: String,
+    // },
+
+    isPaid: {
+      type: Boolean,
+      default: false,
     },
-    isPaid:{
-      type:Boolean,
-      default:false
-    },
-    paidAt:Date,
+    paidAt: Date,
   },
   { versionKey: false, timestamps: true }
 );

@@ -36,7 +36,7 @@ const signin = catchError(async (req, res, next) => {
 
 const setDefaultPassword = catchError(async (req, res, next) => {
   let user = await User.findById(req.params.id);
-  let defaultPassword = "Password1!";
+  let defaultPassword = process.env.DEFAULT_PASSWORD;
   if (user) {
     await User.findByIdAndUpdate(req.params.id, { password: defaultPassword });
     return res.status(201).json({ message: "success..." });
