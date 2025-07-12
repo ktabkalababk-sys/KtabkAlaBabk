@@ -29,9 +29,9 @@ bootstrap(app);
 
 // 🎯 SPA CATCH-ALL ROUTE - Must come AFTER all API routes
 // This handles all frontend routes (like /cart, /home, etc.)
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.get(/.*/, (req, res) => {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 // 🚨 GLOBAL ERROR HANDLER - Must be last
 app.use(globalError);
