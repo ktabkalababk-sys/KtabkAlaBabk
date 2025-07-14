@@ -19,6 +19,7 @@ const signup = catchError(async (req, res, next) => {
 
 const signin = catchError(async (req, res, next) => {
   let user = await User.findOne({ phoneNumber: req.body.phoneNumber });
+  if (!user) return next(new AppError("the user dosnt exist", 404));
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     return jwt.sign(
       { userId: user._id },

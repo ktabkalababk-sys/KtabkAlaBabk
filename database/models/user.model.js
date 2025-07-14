@@ -29,7 +29,8 @@ const schema = new mongoose.Schema(
     address: String,
 
     phoneNumber: String,
-
+    
+    seconPhoneNumber: String,
   },
   { versionKey: false, timestamps: true }
 );

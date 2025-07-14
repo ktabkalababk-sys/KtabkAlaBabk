@@ -13,6 +13,10 @@ export const signupval = joi.object({
     .string()
     .pattern(/^(?:\+20|0)?1[0125]\d{8}$/)
     .required(),
+  secondPhoneNumber: joi
+    .string()
+    .pattern(/^(?:\+20|0)?1[0125]\d{8}$/)
+    .optional(),
   repassword: joi.valid(joi.ref("password")).required(),
 });
 
