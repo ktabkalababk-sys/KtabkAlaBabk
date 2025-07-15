@@ -23,17 +23,20 @@ const createOrder = catchError(async (req, res, next) => {
   let cart = await Cart.findById(req.params.id).populate("user cartItems.book");
   if (!cart) return next(new AppError("there is no cart", 404));
 
-  totalWeight = cart.cartItems.reduce((sum, item) => {
-    return sum + item.book.weightOfBooks;
-  }, 0);
-
+  //calc the totalorderprice of the order
   let cityPrice = shipmentCost.find((item) => item.city === cart.user.city);
   let OrderPrice = cart.totalCartPrice + cityPrice.price;
 
-  // console.log(cart.cartItems);
+  //calc the total weight of the order
   totalWeight = cart.cartItems.reduce((sum, item) => {
     return sum + item.book.weightOfBooks;
   }, 0);
+  console.log(OrderPrice);
+
+  //calc the total extra weight price
+  const extra = Math.max(0, totalWeight - 1000);
+  OrderPrice = OrderPrice + Math.ceil(extra / 1000) * 10;
+  console.log(OrderPrice);
 
   let order = new Order({
     user: req.user.userId,
