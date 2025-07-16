@@ -5,9 +5,9 @@ import { uploadToImageKit } from "../../middleware/fileUpload.js";
 import { AppError } from "../../utils/appError.js";
 
 const getOrder = catchError(async (req, res, next) => {
-  const order = await Order.findOne({ user: req.user.userId }).populate(
-    "user orderItems.book"
-  );
+  const order = await Order.findOne({ user: req.user.userId })
+    .sort({ createdAt: -1 })
+    .populate("user orderItems.book");
   if (!order) return next(new AppError("there is no orders", 404));
   res.status(201).json({ msg: "success", order });
 });
@@ -20,6 +20,11 @@ const createOrder = catchError(async (req, res, next) => {
     { city: "بورسعيد", price: 40 },
   ];
   let totalWeight = 0;
+
+  const toDelete = await Order.deleteMany({
+    isPaid: false,
+    user: req.user.userId,
+  });
 
   let cart = await Cart.findById(req.params.id).populate("user cartItems.book");
   if (!cart) return next(new AppError("there is no cart", 404));
@@ -58,12 +63,13 @@ const confirmOrder = catchError(async (req, res, next) => {
       req.files.receiptImage[0],
       "ReceiptImage"
     );
-    console.log(uploadResult);
-    Order.receiptImage = uploadResult.name;
-    Order.receiptImageId = uploadResult.fileId;
+    order.receiptImage = uploadResult.name;
+    order.receiptImageId = uploadResult.fileId;
+    order.senderNumber = req.body.senderNumber;
+    order.isPaid = true;
     await order.save();
-    // console.log(order);
     res.status(201).json({ msg: "success", order });
+    await Cart.findOneAndDelete({ user: req.user.userId });
   } else return next(new AppError("please add the receipt picture", 404));
 });
 

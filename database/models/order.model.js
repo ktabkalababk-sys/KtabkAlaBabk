@@ -16,6 +16,8 @@ const schema = new mongoose.Schema(
 
     receiptImageId: String,
 
+    senderNumber: String,
+
     totaOrderlWeight: Number,
 
     totalOrderPrice: Number,
