@@ -1,3 +1,4 @@
+import { Book } from "../../../database/models/books.model.js";
 import { Cart } from "../../../database/models/cart.model.js";
 import { Order } from "../../../database/models/order.model.js";
 import { catchError } from "../../middleware/catchError.js";
@@ -116,6 +117,13 @@ const confirmPayment = catchError(async (req, res, next) => {
   if (!order) return next(new AppError("there is no order", 404));
   order.isCheacked = true;
   await order.save();
+  const operations = order.orderItems.map((item) => ({
+    updateOne: {
+      filter: { _id: item.book }, // Find the book by its ID
+      update: { $inc: { numberOfBooks: -item.quantity } }, // Subtract from numberOfBooks
+    },
+  }));
+  await Book.bulkWrite(operations);
   res.status(201).json({ msg: "success" });
 });
 
