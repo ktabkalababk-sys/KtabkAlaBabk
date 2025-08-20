@@ -40,4 +40,4 @@ app.get(/.*/, (req, res) => {
 // 🚨 GLOBAL ERROR HANDLER - Must be last
 app.use(globalError);
 
-app.listen(port, () => console.log(`Klo Tmam ala elport da👌👌 ${port}!`));
+export default app;
