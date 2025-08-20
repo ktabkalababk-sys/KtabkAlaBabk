@@ -9,6 +9,7 @@ import { globalError } from "./src/middleware/globalError.js";
 import { bootstrap } from "./src/modules/bootstrap.js";
 
 dotenv.config();
+dbConn();
 
 const app = express();
 const port = process.env.PORT || 4000;
