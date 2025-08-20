@@ -1,6 +1,7 @@
 import { Book } from "../../../database/models/books.model.js";
 import { Cart } from "../../../database/models/cart.model.js";
 import { Order } from "../../../database/models/order.model.js";
+import { Shipment } from "../../../database/models/shipment.js";
 import { catchError } from "../../middleware/catchError.js";
 import { uploadToImageKit } from "../../middleware/fileUpload.js";
 import { AppError } from "../../utils/appError.js";
@@ -53,11 +54,38 @@ const getOrder = catchError(async (req, res, next) => {
 
 const createOrder = catchError(async (req, res, next) => {
   let shipmentCost = [
-    { city: "القاهرة", price: 10 },
-    { city: "الجيزة", price: 20 },
-    { city: "الإسكندرية", price: 30 },
-    { city: "بورسعيد", price: 40 },
+    { city: "القاهرة", price: 65 },
+    { city: "الجيزة", price: 65 },
+    { city: "الإسكندرية", price: 75 },
+    { city: "القليوبية", price: 70 },
+    { city: "المنوفية", price: 70 },
+    { city: "الشرقية", price: 70 },
+    { city: "الغربية", price: 70 },
+    { city: "الدقهلية", price: 70 },
+    { city: "البحيرة", price: 70 },
+    { city: "كفر الشيخ", price: 70 },
+    { city: "دمياط", price: 70 },
+    { city: "بورسعيد", price: 70 },
+    { city: "الإسماعيلية", price: 70 },
+    { city: "السويس", price: 70 },
+    { city: "مطروح", price: 90 },
+    { city: "شمال سيناء", price: 90 },
+    { city: "جنوب سيناء", price: 90 },
+    { city: "الفيوم", price: 80 },
+    { city: "بني سويف", price: 80 },
+    { city: "المنيا", price: 80 },
+    { city: "أسيوط", price: 85 },
+    { city: "سوهاج", price: 90 },
+    { city: "قنا", price: 100 },
+    { city: "الأقصر", price: 100 },
+    { city: "أسوان", price: 100 },
+    { city: "البحر الأحمر", price: 100 },
+    { city: "الوادي الجديد", price: 100 },
   ];
+  let shipmentCostS = await Shipment.findOne({ _id: "shipment" });
+  console.log(shipmentCostS.costs);
+  console.log(shipmentCost);
+
   let totalWeight = 0;
 
   const toDelete = await Order.deleteMany({

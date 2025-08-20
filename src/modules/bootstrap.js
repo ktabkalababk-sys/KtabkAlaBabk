@@ -3,6 +3,7 @@ import authAdminRouter from "./auth_Admin/auth.routes.js";
 import bookRouter from "./book/book.routes.js";
 import cartRoutr from "./cart/cart.routes.js";
 import orderRouter from "./order/order.routes.js";
+import shipmentRouter from "./shipment/shipment.routes.js";
 import userRouter from "./users/users.routes.js";
 
 export const bootstrap = (app) => {
@@ -12,4 +13,5 @@ export const bootstrap = (app) => {
   app.use("/user", userRouter);
   app.use("/cart", cartRoutr);
   app.use("/order", orderRouter);
+  app.use("/shipment", shipmentRouter);
 };
