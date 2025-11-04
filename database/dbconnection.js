@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-const mongoURI = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster.rknbn.mongodb.net/${process.env.DATABASE_NAME}`;
+const mongoURI = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@ktabk.realcbv.mongodb.net/${process.env.DATABASE_NAME}`;
 const mongoURILocal = `mongodb://localhost:27017/${process.env.DATABASE_NAME}`;
-
 let isConnected = null;
 
 export const dbConn = async () => {
