@@ -1,8 +1,8 @@
 import Joi from "joi";
 
 export const addBookVal = Joi.object({
-  bookName: Joi.string().min(2).max(30).optional(),
-  bookOwner: Joi.string().min(2).max(30).optional(),
+  bookName: Joi.string().min(2).max(50).optional(),
+  bookOwner: Joi.string().min(2).max(50).optional(),
   bookPrice: Joi.number().optional(),
   numberOfBooks: Joi.number().optional(),
   gradeOfBooks: Joi.string()
@@ -13,8 +13,8 @@ export const addBookVal = Joi.object({
 });
 
 export const editBookVal = Joi.object({
-  bookName: Joi.string().min(2).max(30).optional(),
-  bookOwner: Joi.string().min(2).max(30).optional(),
+  bookName: Joi.string().min(2).max(50).optional(),
+  bookOwner: Joi.string().min(2).max(50).optional(),
   bookPrice: Joi.number().optional(),
   numberOfBooks: Joi.number().optional(),
   gradeOfBooks: Joi.string()
